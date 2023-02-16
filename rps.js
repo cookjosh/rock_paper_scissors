@@ -15,7 +15,7 @@ function playOneRound() {
     let computerChoice = getComputerChoice(threeChoices);
     let computerWinsRound = `${computerChoice} beats ${userChoice}`
     let userWinsRound = `${userChoice} beats ${computerChoice}`
-    if (userChoice === computerChoice) {
+    if (userChoice === computerChoice.toLowerCase()) {
         console.log("Tie!")
         return 3;
     } else if (userChoice === "rock" && computerChoice === "Paper") {
