@@ -8,11 +8,10 @@ function getComputerChoice(threeChoices) {
 }
 
 
-
-
-function playOneRound() {
-    let userChoice = prompt("Choose Rock, Paper, or Scissors: ").toLowerCase();
+function playOneRound(userChoice) {
     let computerChoice = getComputerChoice(threeChoices);
+    console.log(computerChoice);
+    console.log(userChoice);
     let computerWinsRound = `${computerChoice} beats ${userChoice}`
     let userWinsRound = `${userChoice} beats ${computerChoice}`
     if (userChoice === computerChoice.toLowerCase()) {
@@ -38,30 +37,68 @@ function playOneRound() {
         return 1;
     }
 };
+/*
+function playGame() {
+    // add eventListeners to the buttons
+     
 
-function playGame(func) {
-    let tieCount = 0;
-    let userCount = 0;
-    let computerCount = 0;
-    for (i=0; i < 5; i++) {
-        let roundResult = playOneRound();
+    playOneRound(userChoice);
+
+
+    
+    
+    
+    buttons.currentTime = 0;
+    
+    return [userCount, computerCount];
+}
+*/
+
+let tieCount = 0;
+let userCount = 0;
+let computerCount = 0;
+let score_count = [];
+const buttons = document.querySelector(".buttons");
+
+
+if (userCount === 5 || computerCount === 5) {
+    const newDiv = document.createElement("div");
+    newDiv.classList.add("winner-message");
+    buttons.disabled = true;
+    if (userCount === 5) {
+        newDiv.textContent = "You win!";
+    } else {
+        newDiv.textContent = "Computer wins!";
+    }
+} else {
+    buttons.addEventListener('click', function(e) {
+        const choice = e.target.className;
+        const score = document.querySelector(".score");
+    
+        if (choice === "button-rock") {
+            userChoice = "rock";
+        } else if (choice === "button-paper") {
+            userChoice = "paper";
+        } else {
+            userChoice = "scissors";
+        }
+    
+        let roundResult = playOneRound(userChoice);
         if (roundResult === 3) {
             tieCount++;
+            score.textContent = `${userCount} - ${computerCount}`;
         } else if (roundResult === 1) {
             userCount++;
+            score.textContent = `${userCount} - ${computerCount}`;
         } else {
             computerCount++;
+            score.textContent = `${userCount} - ${computerCount}`;
         }
-    }
-    if (userCount > computerCount) {
-        console.log(`User is the winner! Score: user ${userCount} vs computer ${computerCount}`);
-    } else if (computerCount > userCount) {
-        console.log(`Computer is the winner! Score: computer ${computerCount} vs user ${userCount}`);
-    } else if (userCount === computerCount) {
-        console.log(`It's a tie! Score: user ${userCount} and computer ${computerCount}`);
-    }
+    userCount = userCount;
+    computerCount = computerCount;
+    console.log(userCount);
+    console.log(computerCount);
+    })
 }
-
-playGame(playOneRound);
 
 
